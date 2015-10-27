@@ -60,3 +60,41 @@
 -- inner join posts
 -- on posts.id = posts_id
 -- where posts.created_at > 'January 1, 2015';
+
+-- all rows in the comments table, showing post title (aliased as post_title), post url (ailased as post_url), and the comment body (aliased as comment_body) where the comment body contains the word 'USB'
+
+-- select *,  posts.title as post_title, posts.url as post_url, comments.body as comment_body
+-- from comments
+-- inner join posts
+-- on posts.id = posts_id
+-- where comments.body like '%USB%';
+
+-- -- get the post title (aliased as post_title), first name of the author of the post, last name of the author of the post, and comment body (aliased to comment_body), where the comment body contains the word 'matrix'
+
+-- select posts.title as post_title, users.first_name, users.last_name, comments.body as comment_body
+-- from comments
+-- inner join users
+-- on users.id = comments.users_id
+-- inner join posts
+-- on posts.id = posts_id
+-- where comments.body like '%matrix%';
+
+-- -- get the first name of the author of the comment, last name of the author of the comment, and comment body (aliased to comment_body), where the comment body contains the word 'SSL' and the post content contains the word 'dolorum'
+
+-- select users.first_name, users.last_name, comments.body as comment_body
+-- from comments
+-- inner join users
+-- on users.id = comments.users_id
+-- inner join posts
+-- on posts.id = posts_id
+-- where comments.body like '%SSL%' AND posts.content like '%dolorum%';
+
+-- get the first name of the author of the post (aliased to post_author_first_name), last name of the author of the post (aliased to post_author_last_name), the post title (aliased to post_title), username of the author of the comment (aliased to comment_author_username), and comment body (aliased to comment_body), where the comment body contains the word 'SSL' or 'firewall' and the post content contains the word 'nemo'
+
+select users.first_name as post_author_first_name, users.last_name as post_author_last_name, posts.title as post_title, users.username as comment_author_username, comments.body as comment_body
+from comments
+inner join users
+on users.id = comments.users_id
+inner join posts
+on posts.id = posts_id
+where comments.body ~* 'SSL|firewall' AND posts.content like '%nemo%';
